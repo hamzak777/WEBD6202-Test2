@@ -102,13 +102,24 @@ let app;
 
         // Task 1 a
         $("#newTaskButton").on("click", function(){
-            $("#taskList").append('<li class="list-group-item" id="task"><span id="taskText">' + $("#taskTextInput"). val() + '</span> <span class="float-right"><button class="btn btn-outline-primary btn-sm editButton"><i class="fas fa-edit"></i><button class="btn btn-outline-danger btn-sm deleteButton"><i class="fas fa-trash-alt"></i></button></span><input type="text" class="form-control edit-task editTextInput"></li>');
+            $("#taskList").append('<li class="list-group-item" id="task"><span id="taskText">' + $("#taskTextInput"). val() + '</span> <span class="float-right"><button class="btn btn-outline-primary btn-sm editButton"><i class="fas fa-edit"></i><button class="btn btn-outline-danger btn-sm deleteButton"><i class="fas fa-trash-alt"></i></button></span><input type="text" class="form-control edit-task editTextInput" id="editTextInput"></li>');
             $("#taskTextInput"). val('');
         });
 
         // Task 1 b
         $("ul").on("click", ".editButton", function(){
-           
+            $(this).parents('li').children($("#editTextInput")).show();
+        });
+        $('#editTextInput').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                $(this).parents('li').children('taskText').text($("#editTextInput").val()); //closest to working
+                //failed code
+                    //$(this).parents('taskText').val($('#editTextInput').val());
+                    //$(this).parents('span').siblings().text($("#editTextInput").val());
+                    //$(this).parents('li').children('span.first').replaceWith('<span id="taskText">' + $("#editTextInput").val() + '</span>');
+                $("#editTextInput").hide();
+            }
         });
 
         // Task 1 c
